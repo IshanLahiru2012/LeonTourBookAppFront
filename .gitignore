@@ -3,6 +3,8 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+npm-debug.log*
+.env
 
 ### IntelliJ IDEA ###
 .idea/
@@ -18,7 +20,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
-.env
+
 
 ### NetBeans ###
 /nbproject/private/
