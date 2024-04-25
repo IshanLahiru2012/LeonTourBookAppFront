@@ -4,7 +4,7 @@ const HomePage = ()=>{
         <>
         <div className="flex flex-col gap-12 px-3">
             <div className="flex flex-col gap-4 bg-white rounded-lg shadow-md py-8 -mt-16 text-center ">
-                <h1 className="text-4xl font-bold tracking-tighter text-emerald-500">
+                <h1 className="text-3xl font-bold tracking-tighter text-emerald-500">
                     Find Your Tour Transfer
                 </h1>
                 <span className="text-lg">Vehicle is just a click away !</span>
