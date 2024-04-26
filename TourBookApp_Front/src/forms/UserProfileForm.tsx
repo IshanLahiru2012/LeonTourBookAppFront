@@ -1,9 +1,8 @@
-import { any, string, z } from "zod";
-import { UseFormProps, useForm } from "react-hook-form";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod"
-import { Button, Container, FormControl, Input, TextField, Typography} from "@mui/material";
-import { useEffect, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { Button, Container, TextField, Typography} from "@mui/material";
+import { useEffect} from "react";
 import { User } from "../type";
 
 const formSchema = z.object({

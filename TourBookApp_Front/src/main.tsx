@@ -5,6 +5,7 @@ import {BrowserRouter as Router} from "react-router-dom";
 import {AppRoutes} from "./AppRoutes.tsx";
 import Auth0ProviderWithNavi from './auth/Auth0ProviderWithNavi.tsx';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import ManageTransferPage from './pages/ManageTransferPage.tsx';
 
 const queryClient = new QueryClient({
   defaultOptions:{
