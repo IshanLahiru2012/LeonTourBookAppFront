@@ -8,7 +8,6 @@ export const colorList =[
     "Gray",
     "Green",
     "Purple",
-    "Orange",
     "Pink",
     "Maroon",
     "Other"

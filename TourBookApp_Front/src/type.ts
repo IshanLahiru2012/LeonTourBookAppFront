@@ -7,3 +7,21 @@ export type User ={
     country: string;
 
 }
+
+export type Transfer = {
+    _id: string;
+    transferName: string;
+    city: string;
+    estimatedArrivalTime:number;
+    vehicleTypes: vehicleType[];
+    transferImageUrl: string;
+}
+
+export type vehicleType={
+    vehicleCategory: string;
+    pricePerKm: number;
+    color: string[];
+    vehicleImageUrl: string;
+    numOfSeats: number;
+    manufacYear: number;
+}

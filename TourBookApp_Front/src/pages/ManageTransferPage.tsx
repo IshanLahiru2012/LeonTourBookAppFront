@@ -1,11 +1,11 @@
+import { useCreateTransfer } from "../api/TransferApi";
 import ManageTransfeForm from "../forms/manageTransfer/ManageTransferForm"
 
 const ManageTransferPage = ()=>{
+    const {crateTransfer, isLoading} = useCreateTransfer();
     return(
         <>
-        <ManageTransfeForm onSave={function (transferFromData: FormData): void {
-                throw new Error("Function not implemented.");
-            } } isLoading={false}/>
+            <ManageTransfeForm onSave={crateTransfer} isLoading={isLoading}/>
         </>
     )
 }

@@ -4,35 +4,12 @@ import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import TransferDetails from "./TransferDetails";
 import VehicleTypes from "./VehicleTypes";
+import { formSchema, transferFormData } from "../../config/transferDataType";
+import { LoadingButton } from '@mui/lab';
 
-const formSchema = z.object({
-
-    transferName : z.string({
-        required_error:"transferName is required"}),
-    city : z.string({
-        required_error:"city is required"}),
-    estimatedArrivalTime : z.coerce.number({
-        required_error:"estimatedArrivalTime is required",
-        invalid_type_error:"must be a valid number"}),
-    vehicleTypes : z.array(z.object({
-        vehicleCategory : z.string().min(1,"vehicleCategory is required"),
-        pricePerKm : z.coerce.number().min(1,"pricePerKm is required"),
-        color : z.array(z.string()).nonempty({
-            message: "please select at least one color"
-        }),
-        vehicleImageUrl: z.instanceof(File,{message: "vehicle image is required " }),
-        NumOfSeats : z.coerce.number().min(1,"NumOfSeats is required"),
-        manufacYear : z.coerce.number().min(1,"manufacYear is required"),
-    })),
-    transferImageUrl: z.instanceof(File,{message: "transfer image is required " })
-
-
-})
-
-type transferFormData = z.infer<typeof formSchema>;
 
 type Props = {
-    onSave: (transferFromData : FormData)=> void;
+    onSave: (transferFormData : FormData)=> void;
     isLoading: boolean;
 };
 
@@ -40,24 +17,40 @@ const ManageTransfeForm = ({onSave,isLoading}:Props)=>{
     const form = useForm<transferFormData>({
         resolver: zodResolver(formSchema),
         defaultValues:{
+            transferName:"Transfer",
+            city:"colombo",
+            estimatedArrivalTime:0,
             vehicleTypes:[{
                 vehicleCategory:"",
                 pricePerKm:0,
                 color:[],
-                NumOfSeats:0,
-                manufacYear:0
+                numOfSeats:4,
+                manufacYear:2000
             }]
         }
     });
-    const {register, handleSubmit, formState} = form
-
-    const onSubmit = (formDataJson: transferFormData)=>{
-
+    const onSubmit = (dataJson:transferFormData)=>{
+        const formData = new FormData;
+        formData.append("transferName", dataJson.transferName);
+        formData.append("city", dataJson.city);
+        formData.append("estimatedArrivalTime", dataJson.estimatedArrivalTime.toString());
+        formData.append("transferImageUrl", dataJson.transferImageUrl)
+        dataJson.vehicleTypes.forEach((vehicleType, index)=>{
+            formData.append(`vehicleTypes[${index}][vehicleCategory]`,vehicleType.vehicleCategory);
+            formData.append(`vehicleTypes[${index}][pricePerKm]`,vehicleType.pricePerKm.toString());
+            formData.append(`vehicleTypes[${index}][numOfSeats]`,vehicleType.numOfSeats.toString());
+            formData.append(`vehicleTypes[${index}][manufacYear]`,vehicleType.manufacYear.toString());
+            formData.append(`vehicleTypes[${index}][vehicleImageUrl]`,vehicleType.vehicleImageUrl);
+            // formData.append(`vehicleImageUrl`,vehicleType.vehicleImageUrl);
+            vehicleType.color.map((colorItem,index2)=>{
+                formData.append(`vehicleTypes[${index}][color][${index2}]`,colorItem);
+            })
+        })
+        console.log('awa',formData.get('vehicleTypes[0][color][1]'));
+        onSave(formData);
     }
 
-    const as = ()=>{
-        console.log(form)
-    }
+    const { handleSubmit} = form; 
 
     return(
         <>
@@ -68,7 +61,8 @@ const ManageTransfeForm = ({onSave,isLoading}:Props)=>{
                     <Divider/>
                     <VehicleTypes/>
                     <div className="pb-4 flex justify-end">
-                        <Button variant="contained" type="submit"  onClick={as}>Submit</Button>
+                        {isLoading ? <LoadingButton/>:
+                        <Button variant="contained" type="submit">Submit</Button>}
                     </div>
                 </form>
             </FormProvider>
