@@ -1,10 +1,11 @@
 import { Button, Checkbox, FormControl, FormControlLabel, FormHelperText, Grid, InputLabel, MenuItem, Select, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Controller, FieldErrors, useFormContext } from "react-hook-form";
-import { colorList } from "../../config/transfer-options-config";
+import { categoryList, colorList } from "../../config/transfer-options-config";
 import { blue, green, orange, pink } from "@mui/material/colors";
 import { transferFormData } from "../../config/transferDataType";
 import { useState } from "react";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { string } from "zod";
 
 type Props ={
     index : number;
@@ -14,98 +15,99 @@ type Props ={
 const VehicleTypesInput = ({index, removeVehicleType}:Props)=>{
 
     const {control, formState:{errors}} = useFormContext<transferFormData>();
-    const [imageUrl, setImageUrl] = useState('');
-    const categoryList = ["Compact","Economy","MidSize","Standard","Sedan","SUV","MiniVan","Luxury","Dual Purpose","Van","MiniBus"]
+    const [imageUrl, setImageUrl] = useState('');   
 
     return(
-        <Grid sx={{border:1 , borderColor:orange[400], paddingX:2, borderBottomColor:orange[100]}} >
-            <Grid container spacing={2} sx={{ paddingTop: 2 }}>
+        // <Grid sx={{border:1 , borderColor:orange[400], paddingX:2, borderBottomColor:orange[100]}} >
+            
+        // </Grid>
+        <Grid container spacing={2} sx={{ paddingTop: 2 }}>
                 <Grid item xs={12} md={6}>
-                <FormControl fullWidth error={!!errors.vehicleTypes?.[index]?.vehicleCategory}>
-                    <InputLabel >Vehicle Category</InputLabel>
-                    <Controller
-                    name={`vehicleTypes.${index}.vehicleCategory`}
-                    control={control}
-                    render={({ field }) => (
-                        <Select
+                    <FormControl fullWidth error={!!errors.vehicleTypes?.[index]?.vehicleCategory}>
+                        <InputLabel >Vehicle Category</InputLabel>
+                        <Controller
+                        name={`vehicleTypes.${index}.vehicleCategory`}
+                        control={control}
+                        render={({ field }) => (
+                            <Select
+                                {...field}
+                                label="Vehicle Category"
+                                sx={{backgroundColor:"white"}} 
+                                autoWidth
+                            >   
+                                {categoryList.map((item)=>(
+                                    <MenuItem value={item} key={item}>{item}</MenuItem>
+                                ))}
+                            </Select>
+                        )}
+                        />
+                        {errors.vehicleTypes?.[index]?.vehicleCategory && (
+                        <FormHelperText>{errors.vehicleTypes[index]?.vehicleCategory?.message}</FormHelperText>
+                        )}
+                    </FormControl>
+                </Grid>
+
+                <Grid item xs={12} md={6}>
+                    <FormControl fullWidth error={!!errors.vehicleTypes?.[index]?.pricePerKm}>
+                        <Controller
+                        name={`vehicleTypes.${index}.pricePerKm`}
+                        control={control}
+                        render={({ field }) => (
+                            <TextField
                             {...field}
-                            label="Vehicle Category"
+                            error={!!errors.vehicleTypes?.[index]?.pricePerKm}
+                            label="Price Per Km"
+                            type="number"
                             sx={{backgroundColor:"white"}} 
-                        >   
-                            {categoryList.map((item)=>(
-                                <MenuItem value={item} key={item}>{item}</MenuItem>
-                            ))}
-                            
-                        </Select>
-                    )}
-                    />
-                    {errors.vehicleTypes?.[index]?.vehicleCategory && (
-                    <FormHelperText>{errors.vehicleTypes[index]?.vehicleCategory?.message}</FormHelperText>
-                    )}
-                </FormControl>
+                            />
+                        )}
+                        />
+                        {errors.vehicleTypes?.[index]?.pricePerKm && (
+                        <FormHelperText>{errors.vehicleTypes[index]?.pricePerKm?.message}</FormHelperText>
+                        )}
+                    </FormControl>
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                <FormControl fullWidth error={!!errors.vehicleTypes?.[index]?.pricePerKm}>
-                    <Controller
-                    name={`vehicleTypes.${index}.pricePerKm`}
-                    control={control}
-                    render={({ field }) => (
-                        <TextField
-                        {...field}
-                        error={!!errors.vehicleTypes?.[index]?.pricePerKm}
-                        label="Price Per Km"
-                        type="number"
-                        sx={{backgroundColor:"white"}} 
+                    <FormControl fullWidth error={!!errors.vehicleTypes?.[index]?.numOfSeats}>
+                        <Controller
+                        name={`vehicleTypes.${index}.numOfSeats`}
+                        control={control}
+                        render={({ field }) => (
+                            <TextField
+                            {...field}
+                            error={!!errors.vehicleTypes?.[index]?.numOfSeats}
+                            label="Num Of Seats"
+                            type="number"
+                            sx={{backgroundColor:"white"}} 
+                            />
+                        )}
                         />
-                    )}
-                    />
-                    {errors.vehicleTypes?.[index]?.pricePerKm && (
-                    <FormHelperText>{errors.vehicleTypes[index]?.pricePerKm?.message}</FormHelperText>
-                    )}
-                </FormControl>
+                        {errors.vehicleTypes?.[index]?.numOfSeats && (
+                        <FormHelperText>{errors.vehicleTypes[index]?.numOfSeats?.message}</FormHelperText>
+                        )}
+                    </FormControl>
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                <FormControl fullWidth error={!!errors.vehicleTypes?.[index]?.numOfSeats}>
-                    <Controller
-                    name={`vehicleTypes.${index}.numOfSeats`}
-                    control={control}
-                    render={({ field }) => (
-                        <TextField
-                        {...field}
-                        error={!!errors.vehicleTypes?.[index]?.numOfSeats}
-                        label="Num Of Seats"
-                        type="number"
-                        sx={{backgroundColor:"white"}} 
+                    <FormControl fullWidth error={!!errors.vehicleTypes?.[index]?.manufacYear}>
+                        <Controller
+                        name={`vehicleTypes.${index}.manufacYear`}
+                        control={control}
+                        render={({ field }) => (
+                            <TextField
+                            {...field}
+                            error={!!errors.vehicleTypes?.[index]?.manufacYear}
+                            label="Manufacture Year"
+                            type="number"
+                            sx={{backgroundColor:"white"}} 
+                            />
+                        )}
                         />
-                    )}
-                    />
-                    {errors.vehicleTypes?.[index]?.numOfSeats && (
-                    <FormHelperText>{errors.vehicleTypes[index]?.numOfSeats?.message}</FormHelperText>
-                    )}
-                </FormControl>
-                </Grid>
-
-                <Grid item xs={12} md={6}>
-                <FormControl fullWidth error={!!errors.vehicleTypes?.[index]?.manufacYear}>
-                    <Controller
-                    name={`vehicleTypes.${index}.manufacYear`}
-                    control={control}
-                    render={({ field }) => (
-                        <TextField
-                        {...field}
-                        error={!!errors.vehicleTypes?.[index]?.manufacYear}
-                        label="Manufacture Year"
-                        type="number"
-                        sx={{backgroundColor:"white"}} 
-                        />
-                    )}
-                    />
-                    {errors.vehicleTypes?.[index]?.manufacYear && (
-                    <FormHelperText>{errors.vehicleTypes[index]?.manufacYear?.message}</FormHelperText>
-                    )}
-                </FormControl>
+                        {errors.vehicleTypes?.[index]?.manufacYear && (
+                        <FormHelperText>{errors.vehicleTypes[index]?.manufacYear?.message}</FormHelperText>
+                        )}
+                    </FormControl>
                 </Grid>
                 <Grid item xs={12} >
                     <Typography>Available Vehicle Colors</Typography>
@@ -180,20 +182,19 @@ const VehicleTypesInput = ({index, removeVehicleType}:Props)=>{
                         {errors.vehicleTypes?.[index]?.vehicleImageUrl && (
                         <FormHelperText>{errors.vehicleTypes[index]?.vehicleImageUrl?.message}</FormHelperText>
                         )}
-                </FormControl>
-            </Grid>
-            {imageUrl && (
-            <Grid item xs={12} md={12}>
-                <img src={imageUrl} alt="Transfer Preview" style={{ maxWidth: '100%', maxHeight: '200px' }} />
-            </Grid>)}
+                    </FormControl>
+                </Grid>
+                {imageUrl && (
+                <Grid item xs={12} md={12}>
+                    <img src={imageUrl} alt="Transfer Preview" style={{ maxWidth: '100%', maxHeight: '200px' }} />
+                </Grid>)}
 
                 <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end',paddingBottom:2 }}>
-                <Button variant="contained" color="error" onClick={removeVehicleType}>
-                    Remove Vehicle
-                </Button>
+                    <Button variant="contained" color="error" onClick={removeVehicleType}>
+                        Remove Vehicle
+                    </Button>
                 </Grid>
             </Grid>
-        </Grid>
     
     )
 

@@ -14,7 +14,8 @@ export const useCreateTransfer = () =>{
         const resp = await fetch(`${API_BASE_URL}/api/v1/transfer`,{
             method: "POST",
             headers: {
-                Authorization: `Bearer ${accessToken}`,  
+                Authorization: `Bearer ${accessToken}`,
+              
             },
             body:transferFormData
         });

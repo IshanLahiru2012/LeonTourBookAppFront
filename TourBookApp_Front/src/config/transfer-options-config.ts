@@ -12,3 +12,17 @@ export const colorList =[
     "Maroon",
     "Other"
 ]
+
+export const categoryList = [
+    "Compact",
+    "Economy",
+    "MidSize",
+    "Standard",
+    "Sedan",
+    "SUV",
+    "MiniVan",
+    "Luxury",
+    "Dual Purpose",
+    "Van",
+    "MiniBus"
+]

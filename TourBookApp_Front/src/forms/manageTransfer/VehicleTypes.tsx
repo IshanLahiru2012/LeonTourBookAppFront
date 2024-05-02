@@ -21,22 +21,20 @@ const VehicleTypes = () =>{
     return(
       
         <>
-            <div>
-                <div>
+            <Grid >
+                <Grid >
                     <Typography variant="h6" color={green[600]}>Vehicle Types</Typography>
                     <Typography>View and change your vehicle information here</Typography>
-                </div>
-                <div >
-                    <FormControl error={!!errors.vehicleTypes} >
-                        <Grid container >
-                            {fields.map((field, index) => (
-                                <VehicleTypesInput
-                                    key={field.id}
-                                    index={index}
-                                    removeVehicleType={() => remove(index)}
-                                />
-                            ))}
-                        </Grid>
+                </Grid>
+                <Grid >
+                    <FormControl error={!!errors.vehicleTypes} fullWidth>
+                        {fields.map((field, index) => (
+                            <VehicleTypesInput
+                                key={field.id}
+                                index={index}
+                                removeVehicleType={() => remove(index)}
+                            />
+                        ))}
                     </FormControl>
                     <Button type="button" 
                             variant="contained"
@@ -51,8 +49,8 @@ const VehicleTypes = () =>{
                                 manufacYear: 0 })}
                             >+Add Vehicle Types
                     </Button>
-                </div>
-            </div>
+                </Grid>
+            </Grid>
         </>
     );
 };
