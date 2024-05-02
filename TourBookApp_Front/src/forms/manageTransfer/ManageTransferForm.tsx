@@ -6,6 +6,7 @@ import TransferDetails from "./TransferDetails";
 import VehicleTypes from "./VehicleTypes";
 import { formSchema, transferFormData } from "../../config/transferDataType";
 import { LoadingButton } from '@mui/lab';
+import SaveIcon from '@mui/icons-material/Save';
 
 
 type Props = {
@@ -46,7 +47,7 @@ const ManageTransfeForm = ({onSave,isLoading}:Props)=>{
                 formData.append(`vehicleTypes[${index}][color][${index2}]`,colorItem);
             })
         })
-        console.log('awa',formData.get('vehicleTypes[0][color][1]'));
+        console.log('awa',formData.get('vehicleTypes[0][color][0]'));
         onSave(formData);
     }
 
@@ -56,12 +57,17 @@ const ManageTransfeForm = ({onSave,isLoading}:Props)=>{
         <>
         <Container >
             <FormProvider {...form}>
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 bg-gray-100 rounded-lg md:p-10 px-2">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 bg-gray-50 rounded-lg md:p-10 px-2">
                     <TransferDetails/>
                     <Divider/>
                     <VehicleTypes/>
                     <div className="pb-4 flex justify-end">
-                        {isLoading ? <LoadingButton/>:
+                        {isLoading ?
+                        <LoadingButton loading
+                            loadingPosition="start"
+                            startIcon={<SaveIcon />}
+                            variant="outlined">Submit
+                        </LoadingButton>:
                         <Button variant="contained" type="submit">Submit</Button>}
                     </div>
                 </form>

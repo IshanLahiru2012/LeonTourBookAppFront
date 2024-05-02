@@ -36,19 +36,21 @@ const VehicleTypes = () =>{
                             />
                         ))}
                     </FormControl>
-                    <Button type="button" 
-                            variant="contained"
-                            sx={{backgroundColor: brown[500],
-                                '&:hover': {backgroundColor: blue[700],}}}
-                            onClick={()=>append({ 
-                                vehicleCategory: '', 
-                                pricePerKm: 0, 
-                                color: [], 
-                                vehicleImageUrl: null, 
-                                numOfSeats: 0, 
-                                manufacYear: 0 })}
-                            >+Add Vehicle Types
-                    </Button>
+                    <Grid sx={{paddingTop:2}}>
+                        <Button type="button" 
+                                variant="contained"
+                                sx={{backgroundColor: brown[500],
+                                    '&:hover': {backgroundColor: blue[700]}}}
+                                onClick={()=>append({ 
+                                    vehicleCategory: '', 
+                                    pricePerKm: 0, 
+                                    color: [], 
+                                    vehicleImageUrl: null, 
+                                    numOfSeats: 0, 
+                                    manufacYear: 0 })}
+                                >+Add Vehicle Types
+                        </Button>
+                    </Grid>
                 </Grid>
             </Grid>
         </>

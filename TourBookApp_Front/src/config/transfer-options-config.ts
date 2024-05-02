@@ -11,7 +11,7 @@ export const colorList =[
     "Pink",
     "Maroon",
     "Other"
-]
+];
 
 export const categoryList = [
     "Compact",
@@ -25,4 +25,7 @@ export const categoryList = [
     "Dual Purpose",
     "Van",
     "MiniBus"
-]
+];
+
+
+
