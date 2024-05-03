@@ -1,23 +1,25 @@
 import { Button, FormControl, FormHelperText, Grid, TextField, Typography} from "@mui/material";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import VisuallyHiddenInput from '@mui/icons-material';
 import { blue, green } from "@mui/material/colors";
 import { transferFormData } from "../../config/transferDataType";
 
-const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const files = event.target.files;
-    if (files && files.length > 0) {
-      const selectedFile = files[0];
-      console.log("Selected file:", selectedFile);
-      // Further processing of the file, like uploading to a server
-    }
-  };
+// const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+//     const files = event.target.files;
+//     if (files && files.length > 0) {
+//       const selectedFile = files[0];
+//       console.log("Selected file:", selectedFile);
+//       // Further processing of the file, like uploading to a server
+//     }
+//   };
 
 const TransferDetails = ()=>{
-    const {register,formState:{errors},control} = useFormContext<transferFormData>();
-    const [imageUrl, setImageUrl] = useState('');
+    const {register,formState:{errors},control,watch} = useFormContext<transferFormData>();
+    const existingUrl = watch('transferImageUrl');
+    
+    const [imageUrl, setImageUrl] = useState<string|undefined>();
+      
     return(
         <>
         <Grid container spacing={2}>
@@ -111,9 +113,10 @@ const TransferDetails = ()=>{
                         )}
                 </FormControl>
             </Grid>
-            {imageUrl && (
+            {(imageUrl || existingUrl ) && (
+                
             <Grid item xs={12} md={12}>
-                <img src={imageUrl} alt="Transfer Preview" style={{ maxWidth: '100%', maxHeight: '200px' }} />
+                <img src={imageUrl || `${existingUrl}`} alt="Transfer Preview" style={{ maxWidth: '100%', maxHeight: '200px' }} />
             </Grid>)}
             
         </Grid>

@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+const fileOrStringSchema = z.union([
+    z.instanceof(File, { message: 'Must be a file and image is required ' }),
+    z.string().url({ message: 'Must be a valid URL' }),
+  ]);
+
 export const formSchema = z.object({
 
     transferName : z.string({
@@ -15,13 +20,11 @@ export const formSchema = z.object({
         color : z.array(z.string()).nonempty({
             message: "please select at least one color"
         }),
-        vehicleImageUrl: z.instanceof(File,{message: "vehicle image is required " }),
+        vehicleImageUrl: fileOrStringSchema,
         numOfSeats : z.coerce.number().min(1,"NumOfSeats is required"),
         manufacYear : z.coerce.number().min(1,"manufacYear is required"),
     })),
-    transferImageUrl: z.instanceof(File,{message: "transfer image is required " })
-
-
-})
+    transferImageUrl: fileOrStringSchema
+});
 
 export type transferFormData = z.infer<typeof formSchema>;

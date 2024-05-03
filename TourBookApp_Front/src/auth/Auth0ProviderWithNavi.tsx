@@ -19,13 +19,9 @@ const Auth0ProviderWithNavi = ({children}:Props)=>{
     }
 
     const onRedirect = async (appState?: AppState, user?:User)=>{
-       
-        
-        // const token = await getAccessTokenSilently();
-        console.log('eliye');
-        // console.log(token);
-        console.log(user);
+               
         navigate("/auth-callback")
+        // navigate(appState?.returnTo || "/auth-callback");
     };
     
 

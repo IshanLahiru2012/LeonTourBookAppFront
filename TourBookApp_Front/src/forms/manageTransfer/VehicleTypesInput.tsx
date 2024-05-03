@@ -6,6 +6,7 @@ import { transferFormData } from "../../config/transferDataType";
 import { useState } from "react";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { string } from "zod";
+import { Style } from "@mui/icons-material";
 
 type Props ={
     index : number;
@@ -14,8 +15,10 @@ type Props ={
 
 const VehicleTypesInput = ({index, removeVehicleType}:Props)=>{
 
-    const {control, formState:{errors}} = useFormContext<transferFormData>();
-    const [imageUrl, setImageUrl] = useState('');   
+    const {control, formState:{errors},watch} = useFormContext<transferFormData>();
+    const existingImageUrl = watch(`vehicleTypes.${index}.vehicleImageUrl`);
+
+    const [imageUrl, setImageUrl] = useState<string|undefined>();   
 
     return(
         <Grid sx={{border:1 , borderColor:green[200], paddingX:2, borderBottomColor:green[100]}} >
@@ -32,6 +35,7 @@ const VehicleTypesInput = ({index, removeVehicleType}:Props)=>{
                             label="Vehicle Category"
                             sx={{backgroundColor:"white"}} 
                             autoWidth
+                            MenuProps={{style:{maxHeight:400}}}
                         >   
                             {categoryList.map((item)=>(
                                 <MenuItem value={item} key={item}>{item}</MenuItem>
@@ -182,9 +186,9 @@ const VehicleTypesInput = ({index, removeVehicleType}:Props)=>{
                     )}
                 </FormControl>
             </Grid>
-            {imageUrl && (
+            {(imageUrl || existingImageUrl) && (
             <Grid item xs={12} md={12}>
-                <img src={imageUrl} alt="Transfer Preview" style={{ maxWidth: '100%', maxHeight: '200px' }} />
+                <img src={imageUrl || `${existingImageUrl}`} alt="Transfer Preview" style={{ maxWidth: '100%', maxHeight: '200px' }} />
             </Grid>)}
 
             <Grid item xs={12} md={12}>

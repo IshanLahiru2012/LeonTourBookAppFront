@@ -1,24 +1,26 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Container, Divider } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
-import { z } from "zod";
 import TransferDetails from "./TransferDetails";
 import VehicleTypes from "./VehicleTypes";
 import { formSchema, transferFormData } from "../../config/transferDataType";
 import { LoadingButton } from '@mui/lab';
 import SaveIcon from '@mui/icons-material/Save';
+import { Transfer } from "../../type";
+import { useEffect } from "react";
 
 
 type Props = {
+    transfer?: Transfer;
     onSave: (transferFormData : FormData)=> void;
     isLoading: boolean;
 };
 
-const ManageTransfeForm = ({onSave,isLoading}:Props)=>{
+const ManageTransfeForm = ({transfer, onSave,isLoading}:Props)=>{
     const form = useForm<transferFormData>({
         resolver: zodResolver(formSchema),
         defaultValues:{
-            transferName:"Transfer",
+            transferName:"Anex Transfer",
             city:"colombo",
             estimatedArrivalTime:0,
             vehicleTypes:[{
@@ -30,28 +32,42 @@ const ManageTransfeForm = ({onSave,isLoading}:Props)=>{
             }]
         }
     });
+
+    const { handleSubmit, reset} = form;
+
+    useEffect(()=>{
+        if(!transfer){
+            return;
+        }
+
+        reset(transfer);
+
+        console.log( transfer);
+
+    },[reset, transfer])
+
     const onSubmit = (dataJson:transferFormData)=>{
         const formData = new FormData;
         formData.append("transferName", dataJson.transferName);
         formData.append("city", dataJson.city);
         formData.append("estimatedArrivalTime", dataJson.estimatedArrivalTime.toString());
-        formData.append("transferImageUrl", dataJson.transferImageUrl)
+        if(dataJson.transferImageUrl){
+            formData.append("transferImageUrl", dataJson.transferImageUrl);
+        }
         dataJson.vehicleTypes.forEach((vehicleType, index)=>{
             formData.append(`vehicleTypes[${index}][vehicleCategory]`,vehicleType.vehicleCategory);
             formData.append(`vehicleTypes[${index}][pricePerKm]`,vehicleType.pricePerKm.toString());
             formData.append(`vehicleTypes[${index}][numOfSeats]`,vehicleType.numOfSeats.toString());
             formData.append(`vehicleTypes[${index}][manufacYear]`,vehicleType.manufacYear.toString());
             formData.append(`vehicleTypes[${index}][vehicleImageUrl]`,vehicleType.vehicleImageUrl);
-            // formData.append(`vehicleImageUrl`,vehicleType.vehicleImageUrl);
             vehicleType.color.map((colorItem,index2)=>{
                 formData.append(`vehicleTypes[${index}][color][${index2}]`,colorItem);
             })
-        })
-        console.log('awa',formData.get('vehicleTypes[0][color][0]'));
+        });
         onSave(formData);
     }
 
-    const { handleSubmit} = form; 
+ 
 
     return(
         <>

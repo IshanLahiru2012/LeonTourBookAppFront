@@ -8,6 +8,15 @@ export type User ={
 
 }
 
+export type vehicleType={
+    vehicleCategory: string;
+    pricePerKm: number;
+    color: string[];
+    vehicleImageUrl: string;
+    numOfSeats: number;
+    manufacYear: number;
+}
+
 export type Transfer = {
     _id: string;
     transferName: string;
@@ -17,11 +26,3 @@ export type Transfer = {
     transferImageUrl: string;
 }
 
-export type vehicleType={
-    vehicleCategory: string;
-    pricePerKm: number;
-    color: string[];
-    vehicleImageUrl: string;
-    numOfSeats: number;
-    manufacYear: number;
-}
