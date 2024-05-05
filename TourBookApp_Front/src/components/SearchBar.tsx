@@ -40,9 +40,9 @@ const SearchBar = ({onSubmit,placeHolder,onReset}:Props)=>{
         <>
         <Grid {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} 
-                className="flex items-center flex-1 gap-3 justify-between flex-row border-2 rounded-full p-2 mx-5">
+                className="flex items-center gap-3  border-2 rounded-full p-2 mx-5">
                 <Search className="ml-1 text-green-500 hidden md:block"/>
-                <FormControl>
+                <FormControl className="flex-1">
                     <Controller
                         name="searchQuery"
                         control={form.control}
@@ -51,6 +51,7 @@ const SearchBar = ({onSubmit,placeHolder,onReset}:Props)=>{
                                 {...field}
                                 className="border-none outline-none text-xl focus:ring-0"
                                 placeholder={placeHolder}
+                                disableUnderline
                             />
                         )}
                     />

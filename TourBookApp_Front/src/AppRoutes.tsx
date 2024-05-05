@@ -4,7 +4,6 @@ import HomePage from "./pages/HomePage.tsx";
 import UserProfilePage from "./pages/UserProfilePage.tsx";
 import AuthCallbackPage from "./pages/AuthCallbackPage.tsx";
 import SafeRoute from "./auth/SafeRoute.tsx";
-import ManageTransfeForm from "./forms/manageTransfer/ManageTransferForm.tsx";
 import ManageTransferPage from "./pages/ManageTransferPage.tsx";
 import SearchBarPage from "./pages/SearchBarPage.tsx";
 
