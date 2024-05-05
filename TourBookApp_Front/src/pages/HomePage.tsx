@@ -1,5 +1,16 @@
+import { useNavigate } from 'react-router-dom';
 import carType from '../assets/carType.png'
+import SearchBar, { SearchFrom } from '../components/SearchBar';
 const HomePage = ()=>{
+
+    const navigate = useNavigate();
+
+    const handleSearchSubmit = (searchFormValues:SearchFrom)=>{
+        navigate({
+            pathname: `/search/${searchFormValues.searchQuery}`
+        })
+    }
+
     return(
         <>
         <div className="flex flex-col gap-12 px-3">
@@ -8,6 +19,7 @@ const HomePage = ()=>{
                     Find Your Tour Transfer
                 </h1>
                 <span className="text-lg">Vehicle is just a click away !</span>
+                <SearchBar onSubmit={handleSearchSubmit} placeHolder="Search by City or Town"/>
             </div>
             <div className='grid md:grid-cols-2 gap-4 px-2'>
                 <img src={carType}></img>

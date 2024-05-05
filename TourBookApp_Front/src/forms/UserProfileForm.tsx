@@ -4,6 +4,7 @@ import {zodResolver} from "@hookform/resolvers/zod"
 import { Button, Container, TextField, Typography} from "@mui/material";
 import { useEffect} from "react";
 import { User } from "../type";
+import { fieldNames } from "../config/transfer-options-config";
 
 const formSchema = z.object({
     email: z.string().optional(),
@@ -33,32 +34,7 @@ const UserProfileForm = ({onSave,isLoading, currentUser}:Props) => {
     useEffect(()=>{
         form.reset(currentUser);
     },[currentUser, form])
-
     
-    // const onSubmitForm = async (data: UserFormData)=>{
-    //     try{
-    //         console.log("Submitted data: ",data)
-    //         alert("Form Submitted successfully");
-    //         form.reset();
-
-    //     } catch(error){
-    //         console.error("Form Submition error: ",error);
-    //     }finally{
-    //         setIsLoading(false);
-    //     }  
-
-    // }
-    // const [isLoading, setIsLoading] = useState(false);
-    // const [isMobile, setIsMobile] = useState(window.matchMedia("(max-width: 768px)").matches);
-
-    // useEffect(()=>{
-    //     const handleDisplay = ()=>{
-    //         setIsMobile(window.matchMedia("(max-width: 768px)").matches)
-    //     }
-    //     window.addEventListener('resize', handleDisplay);
-    // },[]);
-    
-    const fieldNames: ("email" | "name" | "addressLine1" | "city" | "country")[] = ['email', 'name', 'addressLine1', 'city', 'country'];
     
     return(
         <Container >

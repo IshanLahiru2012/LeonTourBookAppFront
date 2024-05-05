@@ -27,5 +27,12 @@ export const categoryList = [
     "MiniBus"
 ];
 
-
+export const fieldNames: ("email" | "name" | "addressLine1" | "city" | "country")[] = [
+    'email', 
+    'name', 
+    'addressLine1', 
+    'city', 
+    'country'
+];
+    
 
