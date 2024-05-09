@@ -1,4 +1,4 @@
-import { useCreateTransfer, useGetTransfer, useUpdateTransfer } from "../api/TransferApi";
+import { useCreateTransfer, useGetTransfer, useUpdateTransfer } from "../api/OwnTransferApi";
 import ManageTransfeForm from "../forms/manageTransfer/ManageTransferForm"
 
 const ManageTransferPage = ()=>{

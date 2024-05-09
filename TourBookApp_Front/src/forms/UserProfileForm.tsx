@@ -5,6 +5,8 @@ import { Button, Container, TextField, Typography} from "@mui/material";
 import { useEffect} from "react";
 import { User } from "../type";
 import { fieldNames } from "../config/transfer-options-config";
+import { LoadingButton } from "@mui/lab";
+import SaveIcon from '@mui/icons-material/Save';
 
 const formSchema = z.object({
     email: z.string().optional(),
@@ -61,69 +63,19 @@ const UserProfileForm = ({onSave,isLoading, currentUser}:Props) => {
                                                                       
                     />
                 ))}
-                {/* <TextField
-                    label="email"
-                    type="text"
-                    id="email"
-                    {...form.register("email")}
-                    error={!!form.formState.errors.email}
-                    helperText={form.formState.errors.email?.message}
-                    required
-                    fullWidth
-                />
-                <TextField
-                    label="name"
-                    type="text"
-                    id="name"
-                    {...form.register("name")}
-                    error={!!form.formState.errors.name}
-                    helperText={form.formState.errors.name?.message}
-                    required
-                    fullWidth
-                />
-                <TextField
-                    label="addressLine1"
-                    type="text"
-                    id="addressLine1"
-                    {...form.register("addressLine1")}
-                    error={!!form.formState.errors.addressLine1}
-                    helperText={form.formState.errors.addressLine1?.message}
-                    required
-                    fullWidth
-                />
-                <TextField
-                    label="city"
-                    type="text"
-                    id="city"
-                    {...form.register("city")}
-                    error={!!form.formState.errors.city}
-                    helperText={form.formState.errors.city?.message}
-                    fullWidth 
-                    required 
-                />
-                <TextField
-                    label="country"
-                    type="text"
-                    id="country"
-                    {...form.register("country")}
-                    error={!!form.formState.errors.country}
-                    helperText={form.formState.errors.country?.message}
-                    fullWidth 
-                    required
-                /> */}
+                
                 <div className="pb-4 flex justify-end">
-                <Button variant="contained" type="submit" >Submit</Button>
+                    {isLoading ?
+                        <LoadingButton loading
+                        loadingPosition="start"
+                        startIcon={<SaveIcon />}
+                        variant="outlined">Submit
+                    </LoadingButton>:
+                    <Button variant="contained" type="submit" >Submit</Button>}   
                 </div>
                
             </form>
-           </div>
-
-           {/* <Button type="submit" variant="contained" color="primary" disabled={isLoading}>
-           {isLoading ? <CircularProgress size={24} color="secondary" /> : "Submit"}
-         </Button> */}
-           
-           
-
+           </div>             
         </Container>
     )
 };

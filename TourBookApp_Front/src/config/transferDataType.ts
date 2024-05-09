@@ -7,10 +7,8 @@ const fileOrStringSchema = z.union([
 
 export const formSchema = z.object({
 
-    transferName : z.string({
-        required_error:"transferName is required"}).min(2,"transferName is required"),
-    city : z.string({
-        required_error:"city is required"}),
+    transferName : z.string().min(2,"transferName is required"),
+    city : z.string().min(2,"city is required"),
     estimatedArrivalTime : z.coerce.number({
         required_error:"estimatedArrivalTime is required",
         invalid_type_error:"must be a valid number"}),

@@ -26,3 +26,12 @@ export type Transfer = {
     transferImageUrl: string;
 }
 
+export type TransferSearchResponse = {
+    data: Transfer[];
+    pagination:{
+        total : number;
+        page : number;
+        pages: number;
+    }
+}
+
