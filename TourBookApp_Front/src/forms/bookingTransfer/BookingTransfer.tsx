@@ -55,7 +55,7 @@ const BookingTransferForm = ({transfer,selectedIndex}:Props) =>{
         
         console.log(data)
     }
-    const onBooking = (userFormData: UserFormData)=>{
+    const onBooking = (userFormData: UserFormData,data:bookingFormData)=>{
         sessionStorage.setItem(`data-${transfer._id}-${selectedIndex}`,JSON.stringify(data));
         console.log("userFormData", userFormData);
         
