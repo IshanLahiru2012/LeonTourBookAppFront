@@ -17,6 +17,8 @@ import { transferFormData } from "../../config/transferDataType";
 const TransferDetails = ()=>{
     const {register,formState:{errors},control,watch} = useFormContext<transferFormData>();
     const existingUrl = watch('transferImageUrl');
+
+    
     
     const [imageUrl, setImageUrl] = useState<string|undefined>();
       

@@ -5,8 +5,6 @@ import { blue, green, orange, pink } from "@mui/material/colors";
 import { transferFormData } from "../../config/transferDataType";
 import { useState } from "react";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { string } from "zod";
-import { Style } from "@mui/icons-material";
 
 type Props ={
     index : number;

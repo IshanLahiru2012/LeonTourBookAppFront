@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import carType from '../assets/carType.png'
 import SearchBar, { SearchFrom } from '../components/SearchBar';
+
 const HomePage = ()=>{
 
     const navigate = useNavigate();

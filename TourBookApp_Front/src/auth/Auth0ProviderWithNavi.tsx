@@ -19,9 +19,7 @@ const Auth0ProviderWithNavi = ({children}:Props)=>{
     }
 
     const onRedirect = async (appState?: AppState, user?:User)=>{
-               
-        navigate("/auth-callback")
-        // navigate(appState?.returnTo || "/auth-callback");
+        navigate(appState?.returnTo || "/auth-callback");
     };
     
 

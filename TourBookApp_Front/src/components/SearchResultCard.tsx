@@ -1,29 +1,25 @@
 import { ButtonBase, Grid, Link, Paper, Theme, Typography, styled, useMediaQuery } from "@mui/material";
 import { Transfer } from "../type";
-import {Link as RouterLink} from 'react-router-dom';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import { AspectRatio } from "@mui/joy";
 import AccessTimeIcon from "@mui/icons-material/AccessTime"
-import { yellow } from "@mui/material/colors";
 
 type Props= {
     transfer : Transfer
 }
 
-const Img = styled('img')({
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
-  });
 
 const SearchResultCard = ({transfer}:Props) =>{
+  const navigate = useNavigate();
+  const handleDetail =()=>{
+    navigate(`/detail/${transfer._id}`);
+  }
     
     return (
         <Paper
           sx={{
             p: 2,
             margin: 'auto',
-            // maxWidth: 500,
             marginBottom:1,
             flexGrow: 1,
             backgroundColor: (theme) =>
@@ -37,7 +33,8 @@ const SearchResultCard = ({transfer}:Props) =>{
                     <img
                         alt="Transfer Image"
                         src={transfer.transferImageUrl}
-                        className="rounded-md w-full  object-cover "                        
+                        className="rounded-md w-full  object-cover hover:cursor-pointer "   
+                        onClick={handleDetail}                     
                     />
                 </AspectRatio>
                 </Grid>
@@ -45,7 +42,7 @@ const SearchResultCard = ({transfer}:Props) =>{
             <Grid item xs={12} sm container>
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
-                  <Typography gutterBottom variant="subtitle1" component="div">
+                  <Typography gutterBottom variant="subtitle1" component="div" onClick={handleDetail} >
                     {transfer.transferName}
                   </Typography>
                   <Typography variant="body2" gutterBottom>
@@ -74,46 +71,6 @@ const SearchResultCard = ({transfer}:Props) =>{
           </Grid>
         </Paper>
       );
-
-    // return(
-    //     <>
-    //         <Link
-    //             component={RouterLink}
-    //             to={`/detail${transfer._id}`}
-    //         >
-    //             <Grid container>
-    //                 <Grid item xs={12} lg={6}>
-    //                     <AspectRatio ratio={16/6}>
-    //                         <img
-    //                             src={transfer.transferImageUrl}
-    //                             className="rounded-md w-full h-full object-cover"
-    //                         >
-    //                         </img>
-    //                     </AspectRatio>
-    //                 </Grid>
-    //                 <Grid item xs={12} lg={6}>
-    //                     <Grid container >
-    //                         <Grid item xs={12} lg={6} sx={{backgroundColor:yellow[200]}} >
-    //                             <h3>{transfer.transferName}</h3>
-    //                             {transfer.vehicleTypes.map((vehicle,index)=>(
-    //                                 <span>
-    //                                     <span>{vehicle.vehicleCategory}</span>
-    //                                     {index < transfer.vehicleTypes[0].color.length-1 && <span>*</span>}
-    //                                 </span>
-    //                             ))}
-
-    //                         </Grid>
-    //                         <Grid item xs={12} lg={6}>
-    //                             <AccessTimeIcon/>
-    //                             {transfer.estimatedArrivalTime} mins
-    //                         </Grid>
-    //                     </Grid>
-    //                 </Grid>
-    //             </Grid>
-    //         </Link>
-    //     </>
-
-    // );
 }
 
 export default SearchResultCard;

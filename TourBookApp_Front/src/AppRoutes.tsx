@@ -6,6 +6,7 @@ import AuthCallbackPage from "./pages/AuthCallbackPage.tsx";
 import SafeRoute from "./auth/SafeRoute.tsx";
 import ManageTransferPage from "./pages/ManageTransferPage.tsx";
 import SearchPage from "./pages/SearchPage.tsx";
+import TransferDetailPage from "./pages/TransferDetailPage.tsx";
 
 export const AppRoutes = () => {
     return (
@@ -16,6 +17,10 @@ export const AppRoutes = () => {
                 <Route path="/search/:city" 
                         element={<Layout showFront={false}>
                                     <SearchPage/>
+                                </Layout>}  />
+                <Route path="/detail/:transferId" 
+                        element={<Layout showFront={false}>
+                                    <TransferDetailPage/>
                                 </Layout>}  />
                 <Route element={<SafeRoute/>}>
                     <Route path="/user-profile" 

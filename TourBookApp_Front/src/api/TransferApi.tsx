@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { TransferSearchResponse } from "../type";
+import { Transfer, TransferSearchResponse } from "../type";
 import { SearchState } from "../pages/SearchPage";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -32,4 +32,28 @@ export const useSearchTransfers = (searchState:SearchState, city?: string) =>{
         searchResult,
         isLoading
     }
+}
+
+export const useGetSelectedTransfer = (transferId?: string)=>{
+
+    
+    const getTransferIdRequest = async(): Promise<Transfer> =>{
+        
+        const resp = await fetch(`${API_BASE_URL}/api/v1/transfer/public/${transferId}`);
+
+        if(!resp.ok){
+            throw new Error("Failed to get transfer");
+        }
+
+    
+        return resp.json();
+    }
+
+    const {data: transfer, isLoading} = useQuery("fetchTransfer", getTransferIdRequest);
+
+    return{
+        transfer,
+        isLoading
+    }
+
 }

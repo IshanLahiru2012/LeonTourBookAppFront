@@ -16,15 +16,17 @@ const formSchema = z.object({
     country: z.string().min(1,"Country is required")
 });
 
-type UserFormData = z.infer<typeof formSchema>;
+export type UserFormData = z.infer<typeof formSchema>;
 
 type Props = {
     currentUser: User;
     onSave: (userFormData: UserFormData) => void;
     isLoading:boolean;  
+    formTitle?: string;
+    buttonLabel?: string;
 }
 
-const UserProfileForm = ({onSave,isLoading, currentUser}:Props) => {
+const UserProfileForm = ({onSave,isLoading, currentUser, formTitle="User Profile Form",buttonLabel="Submit"}:Props) => {
 
     const form = useForm<UserFormData>({
         resolver: zodResolver(formSchema),
@@ -43,7 +45,7 @@ const UserProfileForm = ({onSave,isLoading, currentUser}:Props) => {
            <div>
             <form onSubmit={handleSubmit(onSave)} className="space-y-4 bg-gray-100 rounded-lg md:p-10 px-2">
                 <div>
-                    <h2 className="text-2xl font-bold">User Profile Form</h2>
+                    <h2 className="text-2xl font-bold">{formTitle}</h2>
                     <Typography>View and change your profile information here</Typography>
                 </div>
                 {fieldNames.map((field) => (
@@ -66,12 +68,12 @@ const UserProfileForm = ({onSave,isLoading, currentUser}:Props) => {
                 
                 <div className="pb-4 flex justify-end">
                     {isLoading ?
-                        <LoadingButton loading
+                    <LoadingButton loading
                         loadingPosition="start"
                         startIcon={<SaveIcon />}
                         variant="outlined">Submit
                     </LoadingButton>:
-                    <Button variant="contained" type="submit" >Submit</Button>}   
+                    <Button sx={{ textTransform: 'none' }} variant="contained" type="submit"  >{buttonLabel}</Button>}   
                 </div>
                
             </form>
