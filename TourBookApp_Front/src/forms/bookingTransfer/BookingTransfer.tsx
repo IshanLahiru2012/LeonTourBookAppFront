@@ -52,11 +52,11 @@ const BookingTransferForm = ({transfer,selectedIndex}:Props) =>{
         setTourCharge(parseInt(event.target.value)*transfer.vehicleTypes[selectedIndex].pricePerKm)
     }
     const onSubmit = (data:bookingFormData)=>{
-        
+        sessionStorage.setItem(`data-${transfer._id}-${selectedIndex}`,JSON.stringify(data));
         console.log(data)
     }
-    const onBooking = (userFormData: UserFormData,data:bookingFormData)=>{
-        sessionStorage.setItem(`data-${transfer._id}-${selectedIndex}`,JSON.stringify(data));
+    const onBooking = (userFormData: UserFormData)=>{
+        sessionStorage.setItem(`data-${transfer._id}-${selectedIndex}`,JSON.stringify(getValues()));
         console.log("userFormData", userFormData);
         
     }
