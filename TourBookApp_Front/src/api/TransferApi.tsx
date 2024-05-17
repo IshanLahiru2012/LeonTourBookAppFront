@@ -6,7 +6,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useSearchTransfers = (searchState:SearchState, city?: string) =>{
 
-    const createSearchRequest = async ():Promise<TransferSearchResponse>=>{
+    const createSearchRequest = async ():Promise<TransferSearchResponse> =>{
 
         const params = new URLSearchParams();
         params.set("searchQuery", searchState.searchQuery);

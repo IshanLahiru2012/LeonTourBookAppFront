@@ -9,9 +9,9 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useEffect, useState } from "react";
 import { green } from "@mui/material/colors";
-import { json } from "react-router-dom";
 import BookingButton from "../../components/BookingButton";
 import { UserFormData } from "../UserProfileForm";
+import { useCreateBooking } from "../../api/BookingApi";
 
 type Props = {
     transfer: Transfer;
@@ -32,8 +32,6 @@ const BookingTransferForm = ({transfer,selectedIndex}:Props) =>{
 
     const storedDataFetch = sessionStorage.getItem(`data-${transfer._id}-${selectedIndex}`);
     const storedData = storedDataFetch ? JSON.parse(storedDataFetch):"";
-    console.log(storedData);
-    
 
     const form = useForm<bookingFormData>({
         resolver : zodResolver(formSchema),
@@ -47,6 +45,7 @@ const BookingTransferForm = ({transfer,selectedIndex}:Props) =>{
     })
     const {control,register,handleSubmit, formState:{errors}, reset,getValues} = form;
     const [tourCharge, setTourCharge] = useState<number>(parseFloat((getValues("distance")*transfer.vehicleTypes[selectedIndex].pricePerKm).toFixed(2)))
+    const {createBooking, isLoading} = useCreateBooking();
 
     const handleDistanceChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
         setTourCharge(parseInt(event.target.value)*transfer.vehicleTypes[selectedIndex].pricePerKm)
@@ -55,10 +54,31 @@ const BookingTransferForm = ({transfer,selectedIndex}:Props) =>{
         sessionStorage.setItem(`data-${transfer._id}-${selectedIndex}`,JSON.stringify(data));
         console.log(data)
     }
-    const onBooking = (userFormData: UserFormData)=>{
+    const onBooking = async (userFormData: UserFormData)=>{
         sessionStorage.setItem(`data-${transfer._id}-${selectedIndex}`,JSON.stringify(getValues()));
-        console.log("userFormData", userFormData);
-        
+        if(!transfer){
+            return;
+        }
+
+        const bookingData ={
+            bookingDetails:{
+                date : getValues("date"),
+                time : getValues("time"),
+                distance: getValues("distance"),
+                color: getValues("color"),
+            },
+            userDetails:{
+                email: userFormData.email as string,
+                name: userFormData.name,
+                addressLine1: userFormData.addressLine1,
+                city: userFormData.city,
+                country: userFormData.country,
+            },
+            transferId: transfer._id,
+            vehicleTypeIndex: selectedIndex,
+        }
+        createBooking(bookingData);
+                
     }
 
     useEffect(() => {
@@ -115,8 +135,7 @@ const BookingTransferForm = ({transfer,selectedIndex}:Props) =>{
                                             {...field}
                                             label="Time"
                                             value={field.value ? dayjs(field.value) : null}
-                                            onChange={(newValue) => {field.onChange(newValue?.format("HH:mm")); console.log(field.value);
-                                            }}
+                                            onChange={(newValue) => field.onChange(newValue?.format("HH:mm"))   }
                                         />
                                         {!!errors.time && <FormHelperText>{errors.time.message}</FormHelperText>}
                                     </FormControl>    
@@ -175,7 +194,7 @@ const BookingTransferForm = ({transfer,selectedIndex}:Props) =>{
                     </Grid>
                 </Grid>
                 <Grid p={2}>
-                    <BookingButton disabled={false} onBooking={onBooking}/>
+                    <BookingButton disabled={false} onBooking={onBooking} isLoading={isLoading}/>
                 </Grid>
                 
                 {/* <Grid p={2}>

@@ -7,6 +7,7 @@ import { User } from "../type";
 import { fieldNames } from "../config/transfer-options-config";
 import { LoadingButton } from "@mui/lab";
 import SaveIcon from '@mui/icons-material/Save';
+import { blue, green } from "@mui/material/colors";
 
 const formSchema = z.object({
     email: z.string().optional(),
@@ -42,10 +43,9 @@ const UserProfileForm = ({onSave,isLoading, currentUser, formTitle="User Profile
     
     return(
         <Container >
-           <div>
             <form onSubmit={handleSubmit(onSave)} className="space-y-4 bg-gray-100 rounded-lg md:p-10 px-2">
                 <div>
-                    <h2 className="text-2xl font-bold">{formTitle}</h2>
+                    <Typography variant="h4" component="div" color={blue[400]} >{formTitle}</Typography>
                     <Typography>View and change your profile information here</Typography>
                 </div>
                 {fieldNames.map((field) => (
@@ -76,8 +76,7 @@ const UserProfileForm = ({onSave,isLoading, currentUser, formTitle="User Profile
                     <Button sx={{ textTransform: 'none' }} variant="contained" type="submit"  >{buttonLabel}</Button>}   
                 </div>
                
-            </form>
-           </div>             
+            </form>            
         </Container>
     )
 };

@@ -22,7 +22,7 @@ const TransferDetailPage = ()=>{
     const handleSelectIndex = (index:number)=>{
         setSelectedIndex(index);
     }
-    
+
     useEffect(()=>{
         sessionStorage.setItem(`${transferId}-selectedIndex`, JSON.stringify(selectedIndex));
     },[selectedIndex])
@@ -31,15 +31,10 @@ const TransferDetailPage = ()=>{
         return "Loading..."
     }
 
-    
-
-    
-    
-
     return(
         <>
             <Grid container >
-                <Grid item xs={12} sx={{padding:2}}>
+                <Grid item xs={12} >
                     <AspectRatio ratio={16/6}>
                         <img
                             alt="Transfer Image"

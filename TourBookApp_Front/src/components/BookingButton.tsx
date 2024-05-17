@@ -10,9 +10,10 @@ import { useState } from "react";
 type Props ={
     onBooking: (userFormData: UserFormData) => void;
     disabled: boolean;
+    isLoading: boolean;
 }
 
-const BookingButton = ({onBooking, disabled}:Props)=>{
+const BookingButton = ({onBooking, disabled, isLoading:isBookingLoading}:Props)=>{
 
     const {isAuthenticated, isLoading:isAuthLoading, loginWithRedirect} = useAuth0();
     const {pathname} = useLocation();
@@ -62,21 +63,18 @@ const BookingButton = ({onBooking, disabled}:Props)=>{
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Confirm Booking Details</DialogTitle>
             <DialogContent>
-              <DialogContentText>
+              {/* <DialogContentText> */}
                 <UserProfileForm
                   currentUser={currentUser}
                   onSave={onBooking}
                   isLoading={isGetUserLoading} 
-                  buttonLabel="Continue to payment"
+                  buttonLabel="Book"
                   formTitle=""
                 />
-              </DialogContentText>
+              {/* </DialogContentText> */}
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
-              {/* <Button variant="contained" onClick={onBooking}>
-                Continue to payment
-              </Button> */}
             </DialogActions>
           </Dialog>
         </div>

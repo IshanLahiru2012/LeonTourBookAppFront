@@ -96,14 +96,14 @@ const VehicleCard = ({ transfer,selectedIndex,handleSelectIndex }: Props) => {
 
   return (
     <>
-      <Paper sx={{ p: 1, marginBottom: 1, backgroundColor:green[200],color:"white", mt: 2, display: "flex", justifyContent: "center" }}>
+      <Paper sx={{ p: 1, margin: 1, backgroundColor:green[200],color:"white", mt: 2, display: "flex", justifyContent: "center" }}>
         <Typography>Vehicle Types</Typography>
       </Paper>
 
       {transfer.vehicleTypes.map((type, index) => (
         <Paper
           key={index}
-          sx={{ p: 2, mt:1, cursor:"pointer",
+          sx={{ p: 2, m:1, cursor:"pointer",
             backgroundColor: (theme) => (theme.palette.mode === "dark" ? "#1A2027" : "#fff"),
           }}
           onClick={()=> handleSelectCheckChange(index)}
