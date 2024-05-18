@@ -7,29 +7,35 @@ import SafeRoute from "./auth/SafeRoute.tsx";
 import ManageTransferPage from "./pages/ManageTransferPage.tsx";
 import SearchPage from "./pages/SearchPage.tsx";
 import TransferDetailPage from "./pages/TransferDetailPage.tsx";
+import BookingStatusPage from "./pages/BookingStatusPage.tsx";
 
 export const AppRoutes = () => {
     return (
         <>
             <Routes>
+                <Route path="/test" element={<Layout > <BookingStatusPage/> </Layout>}/>
                 <Route path={'/'} element={<Layout showFront={true}> <HomePage/> </Layout>}/>
                 <Route path="/auth-callback" element={<AuthCallbackPage/>}/>
                 <Route path="/search/:city" 
-                        element={<Layout showFront={false}>
+                        element={<Layout >
                                     <SearchPage/>
                                 </Layout>}  />
                 <Route path="/detail/:transferId" 
-                        element={<Layout showFront={false}>
+                        element={<Layout >
                                     <TransferDetailPage/>
                                 </Layout>}  />
                 <Route element={<SafeRoute/>}>
                     <Route path="/user-profile" 
-                            element={<Layout showFront={false}>
+                            element={<Layout >
                                         <UserProfilePage/>
                                     </Layout>}/>
                     <Route path="/manage-transfer" 
-                            element={<Layout showFront={false}>
+                            element={<Layout >
                                         <ManageTransferPage/>
+                                    </Layout>}/>
+                    <Route path="/booking-status" 
+                            element={<Layout >
+                                        <BookingStatusPage/>
                                     </Layout>}/>
                 </Route>
                 <Route path="*" element={<Navigate to="/" /> }/>

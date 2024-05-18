@@ -5,11 +5,11 @@ import Footer from "../components/Footer.tsx";
 
 type Props = {
     children: React.ReactNode,
-    showFront:boolean;
+    showFront?:boolean;
 }
 
 
-export const Layout = ({children, showFront}:Props) => {
+export const Layout = ({children, showFront= false}:Props) => {
     return (
         <>
             <div className="flex flex-col min-h-screen">

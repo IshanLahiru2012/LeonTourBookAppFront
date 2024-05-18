@@ -1,6 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react"
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { toast } from "react-toastify";
+import { Booking } from "../type";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -66,4 +67,26 @@ export const useCreateBooking = ()=>{
         isLoading
     }
     
+}
+
+export const useGetBookings = ()=>{
+    const {getAccessTokenSilently} = useAuth0();
+
+    const getBookingsRequest = async ():Promise<Booking[]>=>{
+        const accessToken = await getAccessTokenSilently();
+
+        const resp = await fetch(`${API_BASE_URL}/api/v1/booking`,{
+            headers:{
+                Authorization: `Bearer ${accessToken}`,
+            }
+        });
+        if(!resp.ok){
+            throw new Error("Failed to get bookins");
+        }
+        return resp.json();
+    };
+
+    const {data:bookings, isLoading} = useQuery("fetchBookings", getBookingsRequest);
+
+    return {bookings, isLoading}
 }

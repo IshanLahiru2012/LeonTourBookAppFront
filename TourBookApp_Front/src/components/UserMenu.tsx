@@ -30,6 +30,10 @@ export default function FadeMenu() {
     navigate("/manage-transfer");
     handleClose();
   }
+  const handleStatus = ()=> {
+    navigate("/booking-status");
+    handleClose();
+  }
 
   return (
     <div>
@@ -54,6 +58,7 @@ export default function FadeMenu() {
         TransitionComponent={Fade}
       >
         <MenuItem onClick={handleProfile}>Profile</MenuItem>
+        <MenuItem onClick={handleStatus}>Booking Status</MenuItem>
         <MenuItem onClick={handleAccount}>My Transfer Account</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>

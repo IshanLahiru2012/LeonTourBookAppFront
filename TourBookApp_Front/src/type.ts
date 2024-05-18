@@ -35,3 +35,28 @@ export type TransferSearchResponse = {
     }
 }
 
+export type BookingStatus = "placed" | "confirmed" | "pickedUp" | "onTheTour" |"delivered";
+
+export type Booking ={
+    _id: string;
+    transfer: Transfer;
+    user: User;
+    bookingDetails:{
+        date : string;
+        time : string;
+        distance:number;
+        color: string;
+    },
+    userDetails:{
+        email: string;
+        name: string;
+        addressLine1: string;
+        city: string;
+        country: string;
+    };
+    vehicleTypeIndex:string;
+    status: BookingStatus;
+    createdAt: string;
+    transferId: string;
+}
+

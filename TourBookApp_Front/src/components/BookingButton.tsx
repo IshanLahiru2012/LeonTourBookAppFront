@@ -18,7 +18,7 @@ const BookingButton = ({onBooking, disabled, isLoading:isBookingLoading}:Props)=
     const {isAuthenticated, isLoading:isAuthLoading, loginWithRedirect} = useAuth0();
     const {pathname} = useLocation();
 
-    const {currentUser, isLoading: isGetUserLoading} = useGetUser();
+    const {currentUser, isLoading: isUserLoading} = useGetUser();
 
     const onLogin = async ()=>{
         await loginWithRedirect({
@@ -57,21 +57,20 @@ const BookingButton = ({onBooking, disabled, isLoading:isBookingLoading}:Props)=
 
     return (
         <div>
-          <Button variant="contained" disabled={disabled} onClick={handleClickOpen}>
-            Go to Booking
+          <Button variant="contained" disabled={disabled} onClick={handleClickOpen} fullWidth>
+            Booking
           </Button>
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Confirm Booking Details</DialogTitle>
             <DialogContent>
-              {/* <DialogContentText> */}
                 <UserProfileForm
                   currentUser={currentUser}
                   onSave={onBooking}
-                  isLoading={isGetUserLoading} 
-                  buttonLabel="Book"
+                  isUserLoading={isUserLoading} 
+                  isBookingLoading={isBookingLoading}
+                  buttonLabel="Confirm Booking"
                   formTitle=""
                 />
-              {/* </DialogContentText> */}
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
