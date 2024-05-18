@@ -19,32 +19,32 @@ const BookingStatusContent = ({booking}:Props) => {
         <Grid container justifyContent={"space-between"} py={1}>
             <Grid item xs={12} md={6} container px={2}  rowSpacing={1}>
                 <Grid item xs={12}>
-                    <Typography variant="h6" fontSize={12}> 
+                    <Typography variant="h6" fontSize={13}> 
                         <LocationOnIcon color="success"/>
                         Pick up Location
                     </Typography>
-                    <Typography fontSize={12} px={1}>{booking.userDetails.name}</Typography>
-                    <Typography fontSize={11} px={1}>
+                    <Typography fontSize={12} px={4}>{booking.userDetails.name}</Typography>
+                    <Typography fontSize={12} px={4}>
                         {booking.userDetails.addressLine1}, {booking.userDetails.city}
                     </Typography>
                 </Grid> 
                 <Grid item xs={12}>
-                    <Typography variant="h6" fontSize={12}> 
+                    <Typography variant="h6" fontSize={13}> 
                         <DirectionsCarIcon color="success"/>
                         Transfer Vehicle Details
                     </Typography>
-                    <Typography fontSize={11} px={1}>Vehicle Type  {'>'} {booking.transfer.vehicleTypes[parseInt(booking.vehicleTypeIndex)].vehicleCategory}</Typography>
-                    <Typography fontSize={11} px={1}>Vehicle Color {'>'} {booking.bookingDetails.color}</Typography>
+                    <Typography fontSize={12} px={4}>Vehicle Type  {'>'} {booking.transfer.vehicleTypes[parseInt(booking.vehicleTypeIndex)].vehicleCategory}</Typography>
+                    <Typography fontSize={12} px={4}>Vehicle Color {'>'} {booking.bookingDetails.color}</Typography>
                 </Grid> 
                 <Grid item xs={12}>
-                    <Typography variant="h6" fontSize={12}> 
+                    <Typography variant="h6" fontSize={13}> 
                         <BookOnlineIcon color="success"/>
                         Booking Details
                     </Typography>
-                    <Typography fontSize={11} px={1}>Tour Distance  {'>'} {booking.bookingDetails.distance}</Typography>
-                    <Typography fontSize={11} px={1}>Tour Charge {'>'} Rs. {getTourCharge()}</Typography>
-                    <Typography fontSize={11} px={1}>Tour Date {'>'} {booking.bookingDetails.date.split('T')[0]}</Typography>
-                    <Typography fontSize={11} px={1}>Tour Time {'>'} {booking.bookingDetails.time}</Typography>
+                    <Typography fontSize={12} px={4}>Tour Distance  {'>'} {booking.bookingDetails.distance}</Typography>
+                    <Typography fontSize={12} px={4}>Tour Charge {'>'} Rs. {getTourCharge()}</Typography>
+                    <Typography fontSize={12} px={4}>Tour Date {'>'} {booking.bookingDetails.date.split('T')[0]}</Typography>
+                    <Typography fontSize={12} px={4}>Tour Time {'>'} {booking.bookingDetails.time}</Typography>
                 </Grid>
             </Grid>
             <Grid item xs={12} md={6} container px={2} justifyContent={"end"}>

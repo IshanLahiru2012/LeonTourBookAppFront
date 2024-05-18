@@ -86,7 +86,7 @@ export const useGetBookings = ()=>{
         return resp.json();
     };
 
-    const {data:bookings, isLoading} = useQuery("fetchBookings", getBookingsRequest);
+    const {data:bookings, isLoading} = useQuery("fetchBookings", getBookingsRequest,{refetchInterval:5000});
 
     return {bookings, isLoading}
 }

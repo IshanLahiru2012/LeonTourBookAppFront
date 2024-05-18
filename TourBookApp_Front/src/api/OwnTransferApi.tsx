@@ -95,3 +95,60 @@ export const useUpdateTransfer = ()=>{
 
     return {updateTransfer, isLoading};
 };
+
+export const useGetTransferBooking = ()=>{
+    const {getAccessTokenSilently} = useAuth0();
+
+    const getTransferBookingRequest = async ()=>{
+        const accessToken = await getAccessTokenSilently();
+
+        const resp = await fetch(`${API_BASE_URL}/api/v1/transfer/booking`,{
+            headers:{
+                Authorization: `Bearer ${accessToken}`,
+                "Content-type": "application/json"
+            }
+        });
+        if(!resp.ok){
+            throw new Error("Failed to fetch Bookings");
+        }
+        return resp.json();
+    }
+
+    const {data: bookings, isLoading} = useQuery("fetchTransferBookings", getTransferBookingRequest);
+    return {bookings, isLoading};
+}
+
+type UpdateBookingStatusRequest={
+    bookingId: string;
+    status: string;
+}
+export const useUpdateBookingStatus = ()=>{
+    const {getAccessTokenSilently} = useAuth0();
+
+    const updateBookingStatus = async (updateBookingStatusRequest:UpdateBookingStatusRequest)=>{
+        const accessToken = await getAccessTokenSilently();
+        const resp = await fetch(`${API_BASE_URL}/api/v1/transfer/booking/${updateBookingStatusRequest.bookingId}/status`,{
+            method: "PATCH",
+            headers:{
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({status: updateBookingStatusRequest.status})
+        });
+        
+        if(!resp.ok){
+            throw new Error("Failed to update status");
+        }
+        return resp.json();
+    };
+    const {mutateAsync: updateBooking, isLoading, isError, isSuccess, reset} = useMutation(updateBookingStatus);
+
+    if(isSuccess){
+        toast.success("Booking updated");
+    }
+    if(isError){
+        toast.error("Unable to update booking");
+        reset();
+    }
+    return {updateBooking, isLoading};
+}

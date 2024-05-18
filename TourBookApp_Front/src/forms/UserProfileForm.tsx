@@ -22,13 +22,12 @@ export type UserFormData = z.infer<typeof formSchema>;
 type Props = {
     currentUser: User;
     onSave: (userFormData: UserFormData) => void;
-    isUserLoading:boolean;  
-    isBookingLoading?: boolean;
+    isUserLoading:boolean; 
     formTitle?: string;
     buttonLabel?: string;
 }
 
-const UserProfileForm = ({onSave,isUserLoading,isBookingLoading, currentUser, formTitle="User Profile Form",buttonLabel="Submit"}:Props) => {
+const UserProfileForm = ({onSave,isUserLoading, currentUser, formTitle="User Profile Form",buttonLabel="Submit"}:Props) => {
 
     const form = useForm<UserFormData>({
         resolver: zodResolver(formSchema),
@@ -68,7 +67,7 @@ const UserProfileForm = ({onSave,isUserLoading,isBookingLoading, currentUser, fo
                 ))}
                 
                 <div className="pb-4 flex justify-end">
-                    {isUserLoading || isBookingLoading ?
+                    {isUserLoading ?
                     <LoadingButton loading
                         loadingPosition="start"
                         startIcon={<SaveIcon />}

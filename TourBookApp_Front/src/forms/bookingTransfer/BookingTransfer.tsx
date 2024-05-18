@@ -12,6 +12,8 @@ import { green } from "@mui/material/colors";
 import BookingButton from "../../components/BookingButton";
 import { UserFormData } from "../UserProfileForm";
 import { useCreateBooking } from "../../api/BookingApi";
+import { LoadingButton } from "@mui/lab";
+import SaveIcon from '@mui/icons-material/Save';
 
 type Props = {
     transfer: Transfer;
@@ -193,9 +195,17 @@ const BookingTransferForm = ({transfer,selectedIndex}:Props) =>{
                         
                     </Grid>
                 </Grid>
-                <Grid p={2}>
-                    <BookingButton disabled={false} onBooking={onBooking} isLoading={isLoading}/>
-                </Grid>
+                {isLoading ?
+                    <LoadingButton loading
+                        loadingPosition="start"
+                        startIcon={<SaveIcon />}
+                        variant="outlined">Log in to Booking
+                    </LoadingButton> :
+                    <Grid p={2}>
+                        <BookingButton disabled={false} onBooking={onBooking} isLoading={isLoading}/>
+                    </Grid>
+                }
+                
                 
                 {/* <Grid p={2}>
                     <Button type="submit" variant="contained" fullWidth >Booking</Button>

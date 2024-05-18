@@ -67,7 +67,6 @@ const BookingButton = ({onBooking, disabled, isLoading:isBookingLoading}:Props)=
                   currentUser={currentUser}
                   onSave={onBooking}
                   isUserLoading={isUserLoading} 
-                  isBookingLoading={isBookingLoading}
                   buttonLabel="Confirm Booking"
                   formTitle=""
                 />
