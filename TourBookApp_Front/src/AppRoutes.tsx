@@ -13,7 +13,6 @@ export const AppRoutes = () => {
     return (
         <>
             <Routes>
-                <Route path="/test" element={<Layout > <BookingStatusPage/> </Layout>}/>
                 <Route path={'/'} element={<Layout showFront={true}> <HomePage/> </Layout>}/>
                 <Route path="/auth-callback" element={<AuthCallbackPage/>}/>
                 <Route path="/search/:city" 

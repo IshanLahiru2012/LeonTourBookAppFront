@@ -14,6 +14,7 @@ import { UserFormData } from "../UserProfileForm";
 import { useCreateBooking } from "../../api/BookingApi";
 import { LoadingButton } from "@mui/lab";
 import SaveIcon from '@mui/icons-material/Save';
+import { useNavigate } from "react-router-dom";
 
 type Props = {
     transfer: Transfer;
@@ -35,6 +36,8 @@ const BookingTransferForm = ({transfer,selectedIndex}:Props) =>{
     const storedDataFetch = sessionStorage.getItem(`data-${transfer._id}-${selectedIndex}`);
     const storedData = storedDataFetch ? JSON.parse(storedDataFetch):"";
 
+    const navigate = useNavigate();
+
     const form = useForm<bookingFormData>({
         resolver : zodResolver(formSchema),
         defaultValues:{
@@ -47,7 +50,7 @@ const BookingTransferForm = ({transfer,selectedIndex}:Props) =>{
     })
     const {control,register,handleSubmit, formState:{errors}, reset,getValues} = form;
     const [tourCharge, setTourCharge] = useState<number>(parseFloat((getValues("distance")*transfer.vehicleTypes[selectedIndex].pricePerKm).toFixed(2)))
-    const {createBooking, isLoading} = useCreateBooking();
+    const {createBooking, isLoading, isSuccess} = useCreateBooking();
 
     const handleDistanceChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
         setTourCharge(parseInt(event.target.value)*transfer.vehicleTypes[selectedIndex].pricePerKm)
@@ -80,7 +83,8 @@ const BookingTransferForm = ({transfer,selectedIndex}:Props) =>{
             vehicleTypeIndex: selectedIndex,
         }
         createBooking(bookingData);
-                
+        navigate("/booking-status");
+                     
     }
 
     useEffect(() => {
@@ -199,18 +203,13 @@ const BookingTransferForm = ({transfer,selectedIndex}:Props) =>{
                     <LoadingButton loading
                         loadingPosition="start"
                         startIcon={<SaveIcon />}
-                        variant="outlined">Log in to Booking
+                        variant="outlined">Booking
                     </LoadingButton> :
                     <Grid p={2}>
                         <BookingButton disabled={false} onBooking={onBooking} isLoading={isLoading}/>
                     </Grid>
                 }
-                
-                
-                {/* <Grid p={2}>
-                    <Button type="submit" variant="contained" fullWidth >Booking</Button>
-                </Grid> */}
-                
+                                
             </form>
             </Paper>
             

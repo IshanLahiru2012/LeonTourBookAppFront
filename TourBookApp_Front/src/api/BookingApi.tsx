@@ -53,6 +53,7 @@ export const useCreateBooking = ()=>{
         mutate: createBooking,
         isLoading,
         error,
+        isSuccess,
         reset
 
         } = useMutation(createBookingRequest);
@@ -64,7 +65,8 @@ export const useCreateBooking = ()=>{
     
     return{
         createBooking,
-        isLoading
+        isLoading,
+        isSuccess
     }
     
 }
